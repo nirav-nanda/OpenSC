@@ -119,6 +119,12 @@ deploy_script:
   - bash -c "git config --global user.name 'AppVeyor'"
   - bash -c "if [ \"$DO_PUSH_ARTIFACT\" = yes -a -z \"$APPVEYOR_PULL_REQUEST_NUMBER\" -a \"$APPVEYOR_REPO_NAME\" = \"OpenSC/OpenSC\" ]; then .github/push_artifacts.sh \"AppVeyor build ${APPVEYOR_BUILD_NUMBER}.${APPVEYOR_JOB_NUMBER}\"; fi"
 
+after_deploy:
+- provider: Webhook
+  url: https://app.signpath.io/API/v1/8d2463fe-39bd-4a41-bb72-f008b4b1fe17/Integrations/AppVeyor?ProjectSlug=OpenSC&SigningPolicySlug=test-signing&ArtifactConfigurationSlug=initial
+  authorization:
+     secure: rVw5h22sP2tlCh8yyZQW4f7iFGNsgQ8q4u5/vN216V88J1q/YklGi8OO1jVO+7RM
+
 cache:
   - C:\zlib -> .appveyor.yml
   - C:\zlib-Win32 -> .appveyor.yml
