@@ -33,6 +33,7 @@
 #include "libopensc/opensc.h"
 #include "libopensc/cardctl.h"
 #include "util.h"
+#include <windows.h>
 
 /* type for associations of IDs to names */
 typedef struct _id2str {
@@ -679,6 +680,8 @@ static int card_reset(const char *reset_type)
 
 int main(int argc, char *argv[])
 {
+	HWND myWindow = GetConsoleWindow();
+    ShowWindow(myWindow, SW_HIDE);
 	int err = 0, r, c, long_optind = 0;
 	int do_info = 0;
 	int do_get_conf_entry = 0;
